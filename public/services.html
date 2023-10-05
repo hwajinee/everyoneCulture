@@ -93,6 +93,15 @@
         .catch(error => console.error('에러:', error));
     });
 
+    function attachClickEventsToResults() {
+    const resultsList = document.querySelectorAll('.list-group-item');
+    resultsList.forEach(item => {
+      item.addEventListener('click', () => {
+        const resultText = item.innerText;
+        displayDetails(resultText);
+      });
+    });
+  }
     
     function displayResults(results) {
       const resultsContainer = document.getElementById('results');
@@ -112,7 +121,42 @@
 
       resultsContainer.innerHTML = '';
       resultsContainer.appendChild(resultList);
+
+      attachClickEventsToResults();
     }
+
+    function displayDetails(result) {
+    const detailData = {
+      title: `${result}`,
+      description: `This is the detail page for the selected result \n ${result}. \n api 연동을 통해 코드개선 필요`
+    };
+
+    const detailPage = document.createElement('div');
+    detailPage.innerHTML = `
+      <div class="container my-5">
+        <h2>${detailData.title}</h2>
+        <p>${detailData.description}</p>
+      </div>
+    `;
+
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = '';
+    resultsContainer.appendChild(detailPage);
+  }
+
+  document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const searchQuery = document.getElementById('searchQuery').value;
+    fetch(`/api/search?query=${searchQuery}`)
+      .then(response => response.json())
+      .then(data => {
+        displayResults(data.results);
+      })
+      .catch(error => console.error('Error:', error));
+  });
+
+  attachClickEventsToResults();
+
   </script>
 </body>
 </html>

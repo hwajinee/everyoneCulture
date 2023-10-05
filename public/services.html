@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services | whereDoctor</title>
-  <!-- Bootstrap CSS -->
+  <title>서비스 | 모두의 문화생활</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
+
 <body>
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">whereDoctor</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/">Everyone's Cultural Life</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -36,7 +38,7 @@
   <!-- Header -->
   <header class="bg-primary text-white text-center py-5">
     <h1 class="display-4">Our Services</h1>
-    <p class="lead">Discover the services we offer to improve your healthcare experience.</p>
+    <p class="lead">귀하의 문화 경험을 향상시키기 위한 제공 서비스를 발견하세요.</p>
   </header>
 
   <!-- Content -->
@@ -46,17 +48,17 @@
       <h2>Service Features</h2>
       <ul>
         <li>Search and filtering capabilities</li>
-        <li>Location-based hospital and pharmacy information</li>
+        <li>Location-based information</li>
         <li>Reviews and ratings</li>
       </ul>
     </section>
 
     <!-- Search Form -->
     <section class="mt-4">
-      <h2>Search for Hospitals and Pharmacies</h2>
+      <h2>Search</h2>
       <form class="form-inline">
         <input type="text" class="form-control mr-2" id="searchQuery" placeholder="Search by name">
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-primary" onclick="search()">Search</button>
       </form>
     </section>
 
@@ -68,23 +70,25 @@
       </ul>
     </section>
   </div>
+ 
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3">
-    <p>&copy; 2023 whereDoctor. All rights reserved.</p>
+    <p>&copy; 2023 모두의 문화생활. All rights reserved.</p>
   </footer>
 
   <!-- Bootstrap JS (optional, for some components) -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="path/to/search.js"></script>
 
   <!-- Script for handling search -->
   <script>
     document.querySelector('form').addEventListener('submit', function(event) {
       event.preventDefault();
       const searchQuery = document.getElementById('searchQuery').value;
-      // Replace with actual API call using the searchQuery
+      // 실제 API 호출로 대체하여 검색 쿼리 사용
       fetch(`/api/search?query=${searchQuery}`)
         .then(response => response.json())
         .then(data => {
@@ -94,22 +98,22 @@
     });
 
     function attachClickEventsToResults() {
-    const resultsList = document.querySelectorAll('.list-group-item');
-    resultsList.forEach(item => {
-      item.addEventListener('click', () => {
-        const resultText = item.innerText;
-        displayDetails(resultText);
+      const resultsList = document.querySelectorAll('.list-group-item');
+      resultsList.forEach(item => {
+        item.addEventListener('click', () => {
+          const resultText = item.innerText;
+          displayDetails(resultText);
+        });
       });
-    });
-  }
-    
+    }
+
     function displayResults(results) {
       const resultsContainer = document.getElementById('results');
       const resultList = document.createElement('ul');
       resultList.classList.add('list-group');
 
       if (results.length === 0) {
-        resultList.innerHTML = '<li class="list-group-item">No results found.</li>';
+        resultList.innerHTML = '<li class="list-group-item">검색 결과가 없습니다.</li>';
       } else {
         results.forEach(result => {
           const listItem = document.createElement('li');
@@ -126,37 +130,34 @@
     }
 
     function displayDetails(result) {
-    const detailData = {
-      title: `${result}`,
-      description: `This is the detail page for the selected result \n ${result}. \n api 연동을 통해 코드개선 필요`
-    };
+      const detailData = {
+        title: `${result}`,
+        description: `선택한 결과에 대한 상세 페이지입니다. \n ${result}. \n API 연동을 통한 코드 개선이 필요합니다.`
+      };
 
-    const detailPage = document.createElement('div');
-    detailPage.innerHTML = `
+      const detailPage = document.createElement('div');
+      detailPage.innerHTML = `
       <div class="container my-5">
         <h2>${detailData.title}</h2>
         <p>${detailData.description}</p>
       </div>
     `;
 
-    const resultsContainer = document.getElementById('results');
-    resultsContainer.innerHTML = '';
-    resultsContainer.appendChild(detailPage);
-  }
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = '';
+      resultsContainer.appendChild(detailPage);
+    }
 
-  document.querySelector('form').addEventListener('submit', function(event) {
+    document.querySelector('form').addEventListener('submit', function (event) {
     event.preventDefault();
     const searchQuery = document.getElementById('searchQuery').value;
-    fetch(`/api/search?query=${searchQuery}`)
-      .then(response => response.json())
-      .then(data => {
-        displayResults(data.results);
-      })
-      .catch(error => console.error('Error:', error));
+    const results = performSearch(searchQuery); // Use the performSearch function
+    displayResults(results);
   });
 
-  attachClickEventsToResults();
+    attachClickEventsToResults();
 
   </script>
 </body>
+
 </html>

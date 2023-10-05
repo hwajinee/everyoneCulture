@@ -34,6 +34,7 @@
 1. 레포지토리를 클론합니다.
 2. 프로젝트 폴더로 이동하여 필요한 의존성을 설치합니다.
 3. 어플리케이션을 실행합니다.
+4. 서버를 실행할때는 터미널 창에 **nodemon server.js**를 입력하세요
 
 
 더 자세한 내용은 프로젝트의 [Wiki](https://github.com/yourusername/yourproject/wiki)를 참조하세요.

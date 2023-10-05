@@ -85,14 +85,15 @@
       event.preventDefault();
       const searchQuery = document.getElementById('searchQuery').value;
       // Replace with actual API call using the searchQuery
-      const results = [
-        'Hospital 1',
-        'Hospital 2',
-        'Pharmacy 1'
-      ];
-      displayResults(results);
+      fetch(`/api/search?query=${searchQuery}`)
+        .then(response => response.json())
+        .then(data => {
+          displayResults(data.results);
+        })
+        .catch(error => console.error('에러:', error));
     });
 
+    
     function displayResults(results) {
       const resultsContainer = document.getElementById('results');
       const resultList = document.createElement('ul');

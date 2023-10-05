@@ -23,6 +23,7 @@ app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'contact.html'));
 });
 
+
 // 검색을 위한 API 엔드포인트
 app.get('/api/search', (req, res) => {
   const { query } = req.query;

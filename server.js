@@ -20,15 +20,18 @@ app.get('/services', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'services.html'));
 });
 
+
 app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'contact.html'));
 });
+
 
 app.get('/api/search', (req, res) => {
   const { query } = req.query;
   const results = performSearch(query);
   res.json({ results });
 });
+
 
 app.get('/api/message', (req, res) => {
   const message = 'This is a sample message from the API.';

@@ -4,6 +4,7 @@ const performSearch = (searchQuery) => {
     const results = ['온누리 약국', '건대 약국', '건대 병원','일산 성모 병원'];
     return results.filter(result => result.includes(searchQuery));
   };
+
   
   module.exports = {
     performSearch,

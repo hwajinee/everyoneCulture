@@ -21,7 +21,9 @@ body {
     color: #000000; /* Set text color to black */
     font-family: 'TitleFont', Arial, sans-serif;
 }
-
+.nav-link.active {
+    font-weight: bold;
+}
 .navbar-brand:hover, .nav-link:hover {
     color: #000000 !important;
 }

@@ -1,5 +1,4 @@
 <!-- navbar.html -->
-
 <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">모두의 문화생활</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -9,27 +8,26 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/">홈</a>
+          <a class="nav-link" href="/" onclick="handleMenuClick(this)">홈</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/about">사이트 소개</a>
+          <a class="nav-link" href="/about" onclick="handleMenuClick(this)">사이트 소개</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/services">서비스</a>
+          <a class="nav-link" href="/services" onclick="handleMenuClick(this)">서비스</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/contact">개발자들</a>
+          <a class="nav-link" href="/contact" onclick="handleMenuClick(this)">개발자들</a>
         </li>
       </ul>
     </div>
-  </nav>
-  <script>
-    function changeFontWeight(element) {
-        // Remove bold from all nav links
+</nav>
+
+<script>
+    function handleMenuClick(clickedElement) {
+        
         const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => link.style.fontWeight = 'normal');
-    
-        // Set the clicked link to bold
-        element.style.fontWeight = 'bold';
+
+        clickedElement.classList.add('active');
     }
-    </script>
+</script>

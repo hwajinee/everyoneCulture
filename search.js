@@ -11,6 +11,7 @@ const performSearch = (searchQuery) => {
       { name: '일산전', address: '고양시 일산구' }
   ];
 
+  
   // 검색어와 일치하는 결과 필터링
   return results.filter(result => result.name.includes(searchQuery));
 };

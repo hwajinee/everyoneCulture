@@ -1,0 +1,75 @@
+/* style.css */
+@font-face {
+    font-family: 'TitleFont';
+    src: url('/fonts/title_font.ttf') format('truetype'); /* 경로를 적절히 수정하세요 */
+  }
+body {
+    background-color: #f7f7f7;
+    font-family: 'TitleFont', Arial, sans-serif;
+  }
+  
+ /* Existing styles */
+
+.navbar {
+    background-color: #ffffff; /* Change to white background */
+    padding: 20px;
+    font-family: 'TitleFont', Arial, sans-serif;
+    
+}
+
+.navbar-brand, .nav-link {
+    color: #000000; /* Set text color to black */
+    font-family: 'TitleFont', Arial, sans-serif;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #000000 !important;
+}
+
+/* Rest of the existing styles */
+
+  
+  header {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 80px 0;
+  }
+  
+  section {
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-card {
+    margin-bottom: 15px;
+  }
+  
+  .contact-card h5 {
+    color: #333333;
+  }
+  
+  .contact-card p {
+    color: #555555;
+  }
+  
+  .contact-card a {
+    color: #3498db;
+  }
+  
+  .contact-card a:hover {
+    color: #f39c12;
+  }
+  
+  footer {
+    background-color: #343a40;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+  .subtext {
+    font-size: 14px; /* Adjust the font size as needed */
+    font-weight: lighter; /* Adjust the font weight as needed */
+}
+   

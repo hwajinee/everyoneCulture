@@ -74,4 +74,9 @@ body {
     font-size: 14px; /* Adjust the font size as needed */
     font-weight: lighter; /* Adjust the font weight as needed */
 }
-   
+a {
+  color: black;
+}
+a:visited {
+  color: black;
+}

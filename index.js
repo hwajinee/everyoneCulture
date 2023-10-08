@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const { performSearch } = require('./search'); // 검색 로직 가져오기
 
+
 const app = express();
 const PORT = 8800;
 

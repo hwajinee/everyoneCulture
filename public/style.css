@@ -1,4 +1,7 @@
-
+@font-face {
+  font-family: 'TextFont';
+  src: url('/fonts/text_font.ttf') format('truetype');
+}
 @font-face {
     font-family: 'TitleFont';
     src: url('/fonts/title_font.ttf') format('truetype'); /* 경로를 적절히 수정하세요 */
@@ -87,4 +90,11 @@ a:visited {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.details {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  font-family: 'TextFont', serif;
 }

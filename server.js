@@ -26,6 +26,9 @@ app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'contact.html'));
 });
 
+app.get('/search', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'search.html'));
+});
 
 app.get('/api/search', (req, res) => {
   const { query } = req.query;

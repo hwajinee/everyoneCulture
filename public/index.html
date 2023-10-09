@@ -46,16 +46,23 @@
     <p style="font-size: 30px; color: black;"><br>관심있는 경기도 문화소식, 지금 검색해보세요!<br><br></p>
     <div class="row justify-content-center">
         <div class="col-md-6 d-flex">
-            <input type="input" class="form-control" placeholder="찾으시는 행사의 키워드로 검색해 보세요" style="border: 1px solid #000000; background-color: #ffffff;">
-            <button type="submit" class="btn btn-primary ml-2" style="border: 1px solid #000000; background-color: #ffffff; color: #000000;">검색</button>
+            <input type="input" id="searchKeyword" class="form-control" placeholder="찾으시는 행사의 키워드로 검색해 보세요" style="border: 1px solid #000000; background-color: #ffffff;">
+            <button type="button" onclick="searchWithKeyword()" class="btn btn-primary ml-2" style="border: 1px solid #000000; background-color: #ffffff; color: #000000;">검색</button><br>
         </div>
+    </div><br>
+    <div class="row justify-content-center mt-3">
+        <span class="keyword" onclick="addKeyword('뮤지컬')" style="margin-right: 40px;">뮤지컬</span>
+        <span class="keyword" onclick="addKeyword('전시회')" style="margin-right: 40px;">전시회</span>
+        <span class="keyword" onclick="addKeyword('사진전')" style="margin-right: 40px;">사진전</span>
+        <span class="keyword" onclick="addKeyword('콘서트')">콘서트</span><br><br>
     </div>
 </section>
 
 
+
   
     <section class="text-center"> <!-- Added class to center-align text -->
-        <h2>경기도의 문화이야기</h2>
+        <h2><br>경기도의 문화이야기</h2>
         <span class="subtext">
             모두의 문화생활을 통해 다양한 문화행사를 접해보세요.<br><br><br<br><br><br><br><br>
         </span>
@@ -103,6 +110,17 @@
     $('.carousel').carousel({
       interval: 3500 // Change slide every 1 second
     });
+
+    function addKeyword(keyword) {
+      document.getElementById('searchKeyword').value = keyword;
+    }
+
+    function searchWithKeyword() {
+      var keyword = document.getElementById('searchKeyword').value;
+      // Perform search with the keyword (you can modify this based on your requirements)
+      alert('Performing search with keyword: ' + keyword);
+    }
+
   </script>
 </body>
 </html>

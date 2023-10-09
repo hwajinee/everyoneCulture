@@ -1,65 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Everyone's Cultural Life</title>
+  <title>About | 모두의 문화생활</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css"> 
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-  <!-- Navbar -->
   <iframe src="navbar.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]); this.remove()"></iframe>
-
-  <!-- Header -->
-  <header class="text-white text-center"> 
-    <div class="container">   
-    <h1 class="display-4">About Everyone's Cultural Life</h1>
-    <p class="lead">Our mission is to promote culture and expand accessibility for everyone.</p>
+  <header class="text-black text-center header-container" style="background-color: white; color: black;">
+    <div class="background-image"></div>
+    <div class="container">
+      <h1 class="display-4">'모두의 문화'가 되도록</h1>
+      <p class="lead">우리의 목표은 문화를 증진시키고 모두에게 접근 가능성을 확장하는 것입니다.</p>
     </div>
-  </header>
+</header>
 
-  <!-- Content -->
-  <div class="container my-5">
-    <!-- Planning Background -->
-    <section class="about-content">
-      <h2>Planning Background</h2>
-      <p>
-        "Everyone's Cultural Life" is a platform designed to increase interest and accessibility to culture. We aim to promote the diversity and beauty of culture to a wider audience.
-        This platform acts as a bridge between people who want to enjoy cultural activities and organizations that host or participate in these activities, enhancing the cultural ecosystem.
-        We provide information on various cultural events, exhibitions, performances, lectures, etc., making it easy for people to participate.
-      </p>
-      <!-- Add more content as needed -->
+
+
+  <!-- Add this div for the scrolling effect -->
+  <div class="parallax"></div>
+
+  
+    <!-- 기획 배경 -->
+    <section class="about-content text-center">
+        <p><br><br><br>
+            "모두의 문화 생활"은 문화에 대한 관심과 접근성을 높이기 위해 설계된 웹사이트입니다.<br><br>
+            이 플랫폼은 문화 활동을 즐기고 싶어하는 경기도내 사람들과 이러한 활동을 주최하거나<br><br>
+            참여하는 단체 간의 다리 역할을 하여 문화 생태계를 향상시킵니다.<br><br>
+            우리는 다양한 문화 행사, 전시회, 공연, 강연 등의 정보를 제공하여 사람들이 참여하기 쉽도록 합니다.<br><br><br><br>
+        </p>
+    </section>
+   <div class="container my-5">
+    <!-- 공공데이터 활용 -->
+    <section class="about-content text-center" style="margin-bottom: 40px;">
+        <h1><br><br>더 가까워질 수 있도록</h1><br>
+        <span class="subtext">
+          "모두의 문화 생활"은 공공데이터 포털에서 제공하는 다양한 문화 행사 정보를 활용하여<br>
+          사용자들에게 행사 정보를 제공하고 편리하게 참여할 수 있도록하고있습니다.</span>
+            <h4><br><br>사용된 공공데이터<br></h4>
+            <span class="subtext">
+              <div class="card-deck mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">경기도문화행사현황</h5>
+                        
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">경기문화재단<br>문화행사 현황</h5>
+                        
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">경기문화재단<br>문화공고/소식<br>현황</h5>
+                       
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">경기문화재단<br>문화공고/소식<br>현황</h5>
+                       
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">경기도소식 현황</h5>
+                        
+                    </div>
+                </div>
+                
+        </span><br><br><br>
+        </p>
+        <br><br><br>
     </section>
 
-    <!-- Main Features -->
-    <section class="about-content mt-4">
-      <h2>Main Features</h2>
+    <!-- 주요 기능 -->
+    <section class="about-content mt-4 text-center" style="margin-bottom: 20px;">
+      <h2><br><br>주요 기능</h2><br>
       <p>
-        "Everyone's Cultural Life" enhances the cultural experience by offering the following key features:
+          "모두의 문화 생활"은 다음과 같은 주요 기능을 제공하고 있습니다.<br><br>
       </p>
-      <ul>
-        <li>Introduction and information about various cultural activities</li>
-        <li>Personalized recommendation system</li>
-        <li>Cultural event and ticket booking features</li>
-      </ul>
-      <!-- Add more content as needed -->
-    </section>
+      <div class="card-deck">
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">다양한 문화 활동 소개 및 정보</h5>
+              </div>
+          </div>
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">개인 맞춤형 추천 시스템</h5>
+              </div>
+          </div>
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">문화 행사 및 티켓 예매 기능</h5>
+              </div>
+          </div>
+      </div>
+  </section>
   </div>
+  
 
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3">
-    <p>&copy; 2023 Everyone's Cultural Life. All rights reserved.</p>
+
+
+  <footer class="text-white text-center py-3">
+    <p>&copy; 2023 모두의 문화생활. All rights reserved.</p>
   </footer>
 
   <!-- Bootstrap JS (optional, for some components) -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
 </body>
-
 </html>

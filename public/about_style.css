@@ -6,6 +6,8 @@
 body {
     background-color: #f7f7f7;
     font-family: 'TitleFont', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
   }
   
 
@@ -79,12 +81,26 @@ a {
 a:visited {
   color: black;
 }
-/* Add this CSS for the scrolling effect */
-.parallax {
-  background-image: url('about.jpg');
-  height: 100vh;
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+ 
+.header-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .background-image {
+    background-image: url('about.jpg'); /* Add your image URL */
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .about-content {
+    margin-top: 150px; /* Adjust this margin based on the header height */
+    padding: 20px;
+  }
+  

@@ -20,8 +20,10 @@
 
 
   <!-- Add this div for the scrolling effect -->
-  <div class="parallax"></div>
-
+  <div class="parallax">
+    <div class="parallax-text">모두가 즐기는 문화</div>
+  </div>
+  
   
     <!-- 기획 배경 -->
     <section class="about-content text-center">
@@ -116,5 +118,29 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
+  <script>
+    const parallaxText = document.querySelector('.parallax-text');
+    const aboutContent = document.querySelector('.about-content');
+
+    function updateParallaxTextPosition() {
+      const viewportHeight = window.innerHeight;
+      const parallaxTextHeight = parallaxText.clientHeight;
+      const aboutContentHeight = aboutContent.clientHeight;
+      const marginTop = (viewportHeight - parallaxTextHeight) / 2;
+      const aboutContentBottom = aboutContent.getBoundingClientRect().bottom;
+
+      if (aboutContentBottom > viewportHeight / 2) {
+        parallaxText.style.marginTop = `${marginTop}px`;
+      } else {
+        // Make the text appear in the middle as user scrolls down
+        const distanceFromMiddle = viewportHeight / 2 - aboutContentBottom;
+        parallaxText.style.marginTop = `${marginTop + distanceFromMiddle}px`;
+      }
+    }
+
+    window.addEventListener('scroll', updateParallaxTextPosition);
+    window.addEventListener('resize', updateParallaxTextPosition);
+    updateParallaxTextPosition();
+  </script>
 </body>
 </html>

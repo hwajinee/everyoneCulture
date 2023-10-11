@@ -124,6 +124,60 @@ a:visited {
   color: white;
   animation: slideIn 2s ease forwards;
 }
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.search-box {
+  width: 50%;
+  text-align: center;
+  font-family: 'TitleFont', Arial, sans-serif;
+  font-size: 24px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.category-filter {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  padding: 20px;
+  background-color: #f7f7f7;
+  overflow-y: auto;
+  font-family: 'TitleFont', Arial, sans-serif;
+  z-index: 999;
+}
+
+.category-filter label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.category-filter input {
+  margin-right: 10px;
+}
+
+.search-results {
+  padding: 20px;
+  margin-left: 300px; 
+}
+
+.search-results h3 {
+  font-family: 'TitleFont', Arial, sans-serif;
+}
+
+.search-results p {
+  font-family: 'TextFont', Arial, sans-serif;
+}
+.card-title a:hover {
+  color: orange; 
+  text-decoration: none;
+}
 @keyframes slideIn {
   0% {
     opacity: 0;

@@ -178,6 +178,30 @@ a:visited {
   color: orange; 
   text-decoration: none;
 }
+.notice-banner {
+  background-image: url('notice.jpeg'); 
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 100px;
+  text-align: center;
+  animation: moveBackground 15s linear infinite alternate; 
+  font-size: 40px; /* Adjust the font size */
+  height: 380px;
+}
+.notice-banner h1 {
+  font-size: 2.5em; /* Adjust the font size for h1 */
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: top;
+  }
+  100% {
+    background-position: bottom;
+  }
+}
+
 @keyframes slideIn {
   0% {
     opacity: 0;

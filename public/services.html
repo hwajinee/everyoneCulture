@@ -4,24 +4,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>서비스 | 모두의 문화생활</title>
+  <title>공지사항 | 모두의 문화생활</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css"> 
+  <link rel="stylesheet" href="style.css">
 </head>
+<style>
+  /* Additional CSS for consistent card height */
+  .card-body {
+    height: 100%; /* Set a fixed height */
+  }
+  .card .card-body .card-text {
+    font-family: 'textFont', sans-serif;
+  }
+</style>
 
 <body>
 
   <!-- Navbar -->
-  <iframe src="navbar.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]); this.remove()"></iframe>
+  <iframe src="navbar.html"
+          onload="this.before((this.contentDocument.body || this.contentDocument).children[0]); this.remove()"></iframe>
 
   <!-- Header -->
-  <header class="text-white text-center">    
+  <header class="text-white text-center banner notice-banner"> <!-- Added 'specific-banner' class -->
     <div class="container">
-    <h1 class="display-4">개발중인 페이지<br></h1>
-    <span class="subtext">귀하의 문화 경험을 향상시키기 위한 제공 서비스를 발견하세요.</span>
+      <h1 class="display-4">문화 소식</h1>
+      <span class="subtext">최신 문화행사 공고를 통해 어떤 행사가 있는지 알수있어요!</span>
     </div>
   </header>
- 
+
+  <!-- Announcement list -->
+  <div class="container my-5">
+    <div class="row" id="announcementRow"></div>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3">
@@ -32,83 +46,55 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="path/to/search.js"></script>
 
-  <!-- Script for handling search -->
+  <!-- Script for fetching and displaying announcements -->
   <script>
-    document.querySelector('form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const searchQuery = document.getElementById('searchQuery').value;
-      // 실제 API 호출로 대체하여 검색 쿼리 사용
-      fetch(`/api/search?query=${searchQuery}`)
-        .then(response => response.json())
-        .then(data => {
-          displayResults(data.results);
-        })
-        .catch(error => console.error('에러:', error));
+    async function fetchAnnouncements() {
+    try {
+      const response = await fetch('/api/announcements');
+      const data = await response.json();
+      console.log('Response:', data); 
+      return data.announcements;
+    } catch (error) {
+      console.error('에러:', error);
+      return [];
+    }
+  }
+
+  async function displayAnnouncements() {
+    const announcements = await fetchAnnouncements();
+    const announcementRow = document.getElementById('announcementRow');
+
+    announcements.forEach((announcement, index) => {
+      const cardColumn = document.createElement('div');
+      cardColumn.classList.add('col-lg-4', 'col-md-6', 'mb-4');
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      const cardBody = document.createElement('div');
+      cardBody.classList.add('card-body');
+
+      const cardTitle = document.createElement('h5');
+      cardTitle.classList.add('card-title');
+      cardTitle.textContent = announcement.title;
+
+      const cardContent = document.createElement('p');
+      cardContent.classList.add('card-text');
+      cardContent.textContent = announcement.content;
+
+      cardBody.appendChild(cardTitle);
+      cardBody.appendChild(cardContent);
+      card.appendChild(cardBody);
+      cardColumn.appendChild(card);
+      announcementRow.appendChild(cardColumn);
+
+      // Limit to 9 announcements (3x3)
+      if (index === 10) return;
     });
+  }
 
-    function attachClickEventsToResults() {
-      const resultsList = document.querySelectorAll('.list-group-item');
-      resultsList.forEach(item => {
-        item.addEventListener('click', () => {
-          const resultText = item.innerText;
-          displayDetails(resultText);
-        });
-      });
-    }
-
-    function displayResults(results) {
-      const resultsContainer = document.getElementById('results');
-      const resultList = document.createElement('ul');
-      resultList.classList.add('list-group');
-
-      if (results.length === 0) {
-        resultList.innerHTML = '<li class="list-group-item">검색 결과가 없습니다.</li>';
-      } else {
-        results.forEach(result => {
-          const listItem = document.createElement('li');
-          listItem.classList.add('list-group-item');
-          listItem.innerText = result;
-          resultList.appendChild(listItem);
-        });
-      }
-
-      resultsContainer.innerHTML = '';
-      resultsContainer.appendChild(resultList);
-
-      attachClickEventsToResults();
-    }
-
-    function displayDetails(result) {
-      const detailData = {
-        title: `${result}`,
-        description: `선택한 결과에 대한 상세 페이지입니다. \n ${result}. \n API 연동을 통한 코드 개선이 필요합니다.`
-      };
-
-      const detailPage = document.createElement('div');
-      detailPage.innerHTML = `
-      <div class="container my-5">
-        <h2>${detailData.title}</h2>
-        <p>${detailData.description}</p>
-      </div>
-    `;
-
-      const resultsContainer = document.getElementById('results');
-      resultsContainer.innerHTML = '';
-      resultsContainer.appendChild(detailPage);
-    }
-
-    document.querySelector('form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const searchQuery = document.getElementById('searchQuery').value;
-    const results = performSearch(searchQuery); // Use the performSearch function
-    displayResults(results);
-  });
-
-  
-    attachClickEventsToResults();
-
+  displayAnnouncements();
   </script>
 </body>
 

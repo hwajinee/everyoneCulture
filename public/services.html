@@ -9,13 +9,16 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <style>
-  /* Additional CSS for consistent card height */
-  .card-body {
-    height: 100%; /* Set a fixed height */
-  }
-  .card .card-body .card-text {
-    font-family: 'textFont', sans-serif;
-  }
+  .card {
+      min-height: 150px; /* Adjust as needed */
+    }
+    .card .card-body {
+      height: 100%;
+      overflow: auto;
+    }
+    .card .card-body .card-text {
+      font-family: 'textFont', sans-serif;
+    }
 </style>
 
 <body>
@@ -48,54 +51,58 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
   <!-- Script for fetching and displaying announcements -->
+  <!-- Script for fetching and displaying announcements -->
   <script>
     async function fetchAnnouncements() {
-    try {
-      const response = await fetch('/api/announcements');
-      const data = await response.json();
-      console.log('Response:', data); 
-      return data.announcements;
-    } catch (error) {
-      console.error('에러:', error);
-      return [];
+      try {
+        const response = await fetch('/api/announcements');
+        const data = await response.json();
+        console.log('Response:', data);
+        return data.announcements;
+      } catch (error) {
+        console.error('에러:', error);
+        return [];
+      }
     }
-  }
+  
+    async function displayAnnouncements() {
+      const announcements = await fetchAnnouncements();
+      const announcementRow = document.getElementById('announcementRow');
+  
+      announcements.forEach((announcement, index) => {
+        const cardColumn = document.createElement('div');
+        cardColumn.classList.add('col-lg-4', 'col-md-6', 'mb-4');
+  
+        const card = document.createElement('div');
+        card.classList.add('card');
+  
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+  
+        const cardTitle = document.createElement('h5');
+        cardTitle.classList.add('card-title');
+        cardTitle.textContent = announcement.TITLE_NM;
+  
+        const cardContent = document.createElement('p');
+        cardContent.classList.add('card-text');
+        cardContent.innerHTML = `
+        <strong>유형:</strong> ${announcement.CLASS_NM}<br>
+        <strong>기간:</strong> ${announcement.BGNG_DE} ~ ${announcement.END_DE}`;
 
-  async function displayAnnouncements() {
-    const announcements = await fetchAnnouncements();
-    const announcementRow = document.getElementById('announcementRow');
-
-    announcements.forEach((announcement, index) => {
-      const cardColumn = document.createElement('div');
-      cardColumn.classList.add('col-lg-4', 'col-md-6', 'mb-4');
-
-      const card = document.createElement('div');
-      card.classList.add('card');
-
-      const cardBody = document.createElement('div');
-      cardBody.classList.add('card-body');
-
-      const cardTitle = document.createElement('h5');
-      cardTitle.classList.add('card-title');
-      cardTitle.textContent = announcement.title;
-
-      const cardContent = document.createElement('p');
-      cardContent.classList.add('card-text');
-      cardContent.textContent = announcement.content;
-
-      cardBody.appendChild(cardTitle);
-      cardBody.appendChild(cardContent);
-      card.appendChild(cardBody);
-      cardColumn.appendChild(card);
-      announcementRow.appendChild(cardColumn);
-
-      // Limit to 9 announcements (3x3)
-      if (index === 10) return;
-    });
-  }
-
-  displayAnnouncements();
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardContent);
+        card.appendChild(cardBody);
+        cardColumn.appendChild(card);
+        announcementRow.appendChild(cardColumn);
+  
+        // Limit to 9 announcements (3x3)
+        if (index === 10) return;
+      });
+    }
+  
+    displayAnnouncements();
   </script>
+
 </body>
 
 </html>

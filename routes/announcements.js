@@ -1,12 +1,10 @@
-// routes/announcements.js
-
 const express = require('express');
 const router = express.Router();
-const Announcement = require('../models/Announcement');  // Correct path to the Announcement model
+const Announcement = require('../models/Announcement');
 
 router.get('/announcements', async (req, res) => {
   try {
-    const announcements = await Announcement.find();
+    const announcements = await Announcement.find({}, 'TITLE_NM CLASS_NM BGNG_DE END_DE');
     res.json({ announcements });
   } catch (error) {
     console.error('Error:', error);

@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const announcementSchema = new Schema({
-  id: Number,
-  title: String,
-  content: String
+  TITLE_NM: String,
+  CLASS_NM: String,
+  BGNG_DE: String,
+  END_DE: String   
 });
 
 const Announcement = model('Announcement', announcementSchema);

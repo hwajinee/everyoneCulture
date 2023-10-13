@@ -10,7 +10,7 @@
 </head>
 <style>
   .card {
-      min-height: 150px; /* Adjust as needed */
+      min-height: 200px; /* Adjust as needed */
     }
     .card .card-body {
       height: 100%;
@@ -81,13 +81,23 @@
   
         const cardTitle = document.createElement('h5');
         cardTitle.classList.add('card-title');
-        cardTitle.textContent = announcement.TITLE_NM;
-  
+           
+        const titleLink = document.createElement('a');
+        titleLink.href = announcement.HMPG_NM;
+        titleLink.textContent = announcement.TITLE_NM;
+        titleLink.target = '_blank';
+
+        cardTitle.appendChild(titleLink);
+
         const cardContent = document.createElement('p');
         cardContent.classList.add('card-text');
+
+        
         cardContent.innerHTML = `
-        <strong>유형:</strong> ${announcement.CLASS_NM}<br>
-        <strong>기간:</strong> ${announcement.BGNG_DE} ~ ${announcement.END_DE}`;
+        <strong>유형:</strong> ${announcement.CLASS_NM}<br><br>
+        <strong>기간:</strong> ${announcement.BGNG_DE} ~ ${announcement.END_DE}<br>
+        <strong>운영시간:</strong> ${announcement.TM}`;
+
 
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardContent);

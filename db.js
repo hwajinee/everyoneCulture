@@ -13,10 +13,13 @@ db.once('open', async () => {
 
     const announcements = [
       {
-        title: "최소리의 소리를 본다(Seeing Sound)",
-        class: "전시",
-        startDate: new Date("2020-11-10"),
-        endDate: new Date("2020-12-06")
+        TITLE_NM: "최소리의 소리를 본다(Seeing Sound)",
+        CLASS_NM: "전시",
+        BGNG_DE: "2020-11-10",
+        END_DE: "2020-12-06",
+        TM: "10:00 - 18:00",
+        IMAGE_URL_NM: "https://ggc.ggcf.kr/uploadimg/file/전시_02_1604989131763.jpg",
+        HMPG_NM: "https://www.hcf.or.kr/"
       },
       // Add other announcements in a similar format
     ];

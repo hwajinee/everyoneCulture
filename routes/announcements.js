@@ -4,7 +4,7 @@ const Announcement = require('../models/Announcement');
 
 router.get('/announcements', async (req, res) => {
   try {
-    const announcements = await Announcement.find({}, 'TITLE_NM CLASS_NM BGNG_DE END_DE');
+    const announcements = await Announcement.find({}, 'TITLE_NM CLASS_NM BGNG_DE END_DE TM  IMAGE_URL_NM HMPG_NM');
     res.json({ announcements });
   } catch (error) {
     console.error('Error:', error);

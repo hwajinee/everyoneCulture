@@ -1,16 +1,17 @@
-const mongoose = require('mongoose');
-const { Schema, model } = mongoose;
+// const mongoose = require('mongoose');
 
-const announcementSchema = new Schema({
-  TITLE_NM: String,
-  CLASS_NM: String,
-  BGNG_DE: String,
-  END_DE: String,
-  TM: String,
-  IMAGE_URL_NM: String, 
-  HMPG_NM: String   
-});
+// const announcementSchema = new mongoose.Schema({
+//   TITLE_NM: String,
+//   CLASS_NM: String,
+//   BGNG_DE: String,
+//   END_DE: String,
+//   TM: String,
+//   IMAGE_URL_NM: String, 
+//   HMPG_NM: String   
+// }, {
+//   collection: 'news'
+// });
 
-const Announcement = model('Announcement', announcementSchema);
+// const Announcement = mongoose.model('Announcement', announcementSchema);
 
-module.exports = Announcement;
+// module.exports = Announcement;

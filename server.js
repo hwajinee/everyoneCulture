@@ -1,55 +1,78 @@
-const express = require('express');
+// express
+const express = require('express')
+const app = express()
+//ejs
+app.set('view engine', 'ejs')
+// req.body쓰려면 아래 두줄 필요
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+
+app.use(express.static(__dirname + '/public'))
+
+//path
 const path = require('path');
-const mongoose = require('mongoose');
-const announcementsRouter = require('./routes/announcements');
-const boardRouter = require('./board');
-const Announcement = require('./models/Announcement');
 
-const app = express();
-const PORT = 8800;
+const { MongoClient } = require('mongodb')
 
-const mongoURI = 'mongodb://localhost:27017/notice_culture';
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+let connectDB = require('./db.js')
+let db
+connectDB.then((client)=>{
+  console.log('DB연결성공')
+  db = client.db('everyoneCulture');
 
-require('./models/Announcement');
+  //DB연결 성공 시, 서버 띄우기
+  app.listen(8800, () =>{
+    console.log('http://localhost:8800 에서 서버 실행중')
+  })
+}).catch((error) =>{
+  console.log(error)
+})
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-app.use('/api', announcementsRouter);
-app.use(express.static(path.join(__dirname, 'public')));
-
+//홈
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+//사이트 소개
 app.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'about.html'));
 });
-
-app.get('/services', (req, res) => {
+ 
+//문화 찾기
+app.use('/search', require('./routers/search.js'))
+app.get('/search', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'search.html'));
+  db.collection('program').insertOne({log: '접속 확인'})
+  console.log('문화 찾기 접속 확인용 db 저장함')
+});
+ 
+//문화 소식
+app.use('/news', require('./routers/news.js'))
+app.get('/news', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'services.html'));
 });
 
+//개발자들
 app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'contact.html'));
 });
 
-app.get('/search', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'search.html'));
-});
+app.use('/api', require('./routers/news'));
 
-app.get('/api/search', (req, res) => {
-  const { query } = req.query;
-  const results = performSearch(query);
-  res.json({ results });
-});
 
-app.get('/api/message', (req, res) => {
-  const message = 'This is a sample message from the API.';
-  res.json({ message });
-});
 
-app.listen(PORT, () => {
-  console.log(`서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
-});
+
+//수정 전 코드 - 용도를 모르겠어서 삭제 안하고 주석처리 해둘게요
+//
+// announcement 관련 model, router 풀면 에러남 
+
+// app.get('/api/search', (req, res) => {
+//   const { query } = req.query;
+//   const results = performSearch(query);
+//   res.json({ results });
+// });
+
+// app.get('/api/message', (req, res) => {
+//   const message = 'This is a sample message from the API.';
+// res.json({ message });
+// });

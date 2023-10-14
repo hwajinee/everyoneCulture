@@ -164,8 +164,9 @@ a:visited {
 
 .search-results {
   padding: 20px;
-  margin-left: 300px; 
+  /* margin-left: 30px;  */
 }
+
 
 .search-results h3 {
   font-family: 'TitleFont', Arial, sans-serif;
@@ -189,8 +190,72 @@ a:visited {
   font-size: 40px; /* Adjust the font size */
   height: 380px;
 }
+.search-banner {
+  background-image: url('search.jpg'); 
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 95px;
+  text-align: center;
+  font-size: 40px; /* Adjust the font size */
+  height: 380px;
+}
+.search-banner h1 {
+  font-size: 2.5em; /* Adjust the font size for h1 */
+}
+
 .notice-banner h1 {
   font-size: 2.5em; /* Adjust the font size for h1 */
+}
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Header와의 간격 조절 */
+  width: 100%; /* .filter 요소의 너비를 100%로 설정 */
+}
+
+.column {
+  flex: 1;
+  margin-right: 10px;
+  margin-top : 20px;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3열로 배치 */
+  gap: 3px; /* 간격 설정 */
+  font-family:  'TextFont';
+}
+/* 지역 선택 및 행사 종류 카테고리 스타일 */
+.category {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.category h2{
+  font-size: 16px; 
+}
+
+.card {
+  margin-bottom: 10px; /* 카드뷰 사이의 간격을 조절합니다. */
+}
+
+@media (min-width: 768px) {
+  .filter {
+      flex-direction: row; /* 화면 폭이 768px 이상일 때, 가로로 배치합니다 */
+  }
+
+  .column {
+      flex: 0 0 20%; /* 화면 폭이 768px 이상일 때, 컬럼을 30% 너비로 고정합니다 */
+  }
+
+  /* .checkbox-grid {
+      column-count: 1; 
+  } */
 }
 
 @keyframes moveBackground {

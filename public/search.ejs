@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | 모두의 문화생활</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css"> <!-- Link to your style.css -->
+</head>
+<body>
+    <!-- Navbar -->
+    <iframe src="navbar.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]); this.remove()"></iframe>
+
+    <!-- Header -->
+    <header class="text-white text-center banner search-banner">
+        <div class="container">
+            <h1 class="display-4">문화 찾기</h1>
+            <span class="subtext">키워드를 통해 원하는 행사를 찾아보세요!</span>
+        </div>
+    </header>
+    <section class="text-center">
+      <p style="font-size: 30px; color: black;"><br>찾으시는 행사를 지금 검색해보세요!<br><br></p>
+      <div class="row justify-content-center">
+          <div class="col-md-6 d-flex">
+              <input type="input" id="searchKeyword" class="form-control" placeholder="찾으시는 행사의 키워드로 검색해 보세요" style="border: 1px solid #000000; background-color: #ffffff;">
+              <button type="button" onclick="searchWithKeyword()" class="btn btn-primary ml-2" style="border: 1px solid #000000; background-color: #ffffff; color: #000000;">검색</button><br>
+          </div>
+      </div><br>
+  </section>
+
+<div class="container">
+  <div class ="row">
+    <div class="col-md-4">
+      <div class="filter">
+        <div class = "category">
+          <h2>지역 선택</h2>
+          <form action="/search/result" method="post">
+            <input type="radio" name="gyeonggi" value="김포"> 김포
+            <input type="radio" name="gyeonggi" value="남양주"> 남양주<br>
+            <input type="radio" name="gyeonggi" value="동두천"> 동두천
+            <input type="radio" name="gyeonggi" value="부천"> 부천<br>
+            <input type="radio" name="gyeonggi" value="성남"> 성남
+            <input type="radio" name="gyeonggi" value="수원"> 수원<br>
+            <input type="radio" name="gyeonggi" value="시흥"> 시흥
+            <input type="radio" name="gyeonggi" value="안산"> 안산<br>
+            <input type="radio" name="gyeonggi" value="안성"> 안성
+            <input type="radio" name="gyeonggi" value="안양"> 안양<br>
+            <input type="radio" name="gyeonggi" value="양주"> 양주
+            <input type="radio" name="gyeonggi" value="양평"> 양평<br>
+            <input type="radio" name="gyeonggi" value="여주"> 여주
+            <input type="radio" name="gyeonggi" value="연쳔"> 연쳔<br>
+            <input type="radio" name="gyeonggi" value="오산"> 오산
+            <input type="radio" name="gyeonggi" value="용인"> 용인<br>
+            <input type="radio" name="gyeonggi" value="의왕"> 의왕
+            <input type="radio" name="gyeonggi" value="의정부"> 의정부<br>
+            <input type="radio" name="gyeonggi" value="이천"> 이천
+            <input type="radio" name="gyeonggi" value="파주"> 파주<br>
+            <input type="radio" name="gyeonggi" value="평택"> 평택
+            <input type="radio" name="gyeonggi" value="포천"> 포천<br>
+            <input type="radio" name="gyeonggi" value="하남"> 하남
+            <input type="radio" name="gyeonggi" value="화성"> 화성<br>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="filter">
+        <div class = "category">
+          <h2>행사 종류</h2>
+            <input type="radio" name="event" value="공연"> 공연<br>
+            <input type="radio" name="event" value="교육"> 교육<br>
+            <input type="radio" name="event" value="전시"> 전시<br>
+            <button type="submit">검색</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="search-results">
+      검색 결과는 이곳에 동적으로 추가됩니다.
+    </div>
+  </div>
+</div>
+  
+
+
+  <script>
+
+    document.querySelector('#searchButton').addEventListener("click", function() 
+    {
+      const selectedLocation = document.querySelector('input[name="gyeonggi"]:checked');
+      const selectedEvent = document.querySelector('input[name="event"]:checked');
+      
+      const locationValue = selectedLocation.value;
+      const eventValue = selectedEvent.value;
+
+      const requestData = {
+        gyeonggi: locationValue,
+        event : eventValue
+      };
+  
+      fetch('/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+    
+    </script>
+
+
+
+
+    <footer class="text-white text-center py-3">
+        <p>&copy; 2023 모두의 문화생활. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS (optional, for some components) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      let searchResults = <%- JSON.stringify(검색결과) %>;
+   
+    function displaySearchResults() {
+    const searchResultsContainer = document.querySelector(".search-results");
+
+    searchResultsContainer.innerHTML = "";
+
+    searchResults.forEach(result => {
+        const resultCard = document.createElement("div");
+        resultCard.classList.add("card");
+
+        const resultCardBody = document.createElement("div");
+        resultCardBody.classList.add("card-body");
+
+        const titleLink = document.createElement("a"); // 링크를 생성
+        titleLink.href = result.link; 
+
+        const titleElement = document.createElement("h5");
+        titleElement.classList.add("card-title");
+        titleElement.textContent = result.title;
+
+        titleLink.appendChild(titleElement); 
+
+        const descriptionElement = document.createElement("p");
+        descriptionElement.classList.add("card-text");
+        descriptionElement.textContent = result.description;
+
+        resultCardBody.appendChild(titleLink);
+        resultCardBody.appendChild(descriptionElement);
+        resultCard.appendChild(resultCardBody);
+
+        searchResultsContainer.appendChild(resultCard);
+    });
+}
+      window.onload = displaySearchResults;
+  </script>
+</body>
+</html>

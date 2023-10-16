@@ -3,21 +3,22 @@ const express = require('express')
 const app = express()
 //ejs
 app.set('view engine', 'ejs')
+
 // req.body쓰려면 아래 두줄 필요
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use(express.static(__dirname + '/public'))
-
 //path
 const path = require('path');
+
+app.use(express.static(__dirname + '/public'))
 
 const { MongoClient } = require('mongodb')
 
 let connectDB = require('./db.js')
 let db
 connectDB.then((client)=>{
-  console.log('DB연결성공')
+  // console.log('DB연결성공')
   db = client.db('everyoneCulture');
 
   //DB연결 성공 시, 서버 띄우기
@@ -40,12 +41,11 @@ app.get('/about', (req, res) => {
  
 //문화 찾기
 app.use('/search', require('./routers/search.js'))
-app.get('/search', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'search.html'));
-  db.collection('program').insertOne({log: '접속 확인'})
-  console.log('문화 찾기 접속 확인용 db 저장함')
+app.get('/search', async(req, resp) => {
+  let result = await db.collection('program').find().toArray() 
+  resp.render('../views/searchList.ejs', { 검색결과 : result })
 });
- 
+
 //문화 소식
 app.use('/news', require('./routers/news.js'))
 app.get('/news', (req, res) => {
@@ -58,6 +58,7 @@ app.get('/contact', (req, res) => {
 });
 
 app.use('/api', require('./routers/news'));
+
 
 
 

@@ -1,6 +1,5 @@
 const { MongoClient } = require("mongodb");
 
-//const url = 'mongodb+srv://hwajin:<hwajin1221>@everyoneculture.qwj2iow.mongodb.net/?retryWrites=true&w=majority'
 const url = 'mongodb+srv://user:user1234@cluster0.60xu7q2.mongodb.net/?retryWrites=true&w=majority'
 let connectDB = new MongoClient(url).connect()
 

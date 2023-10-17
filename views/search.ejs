@@ -32,22 +32,6 @@
     document.querySelector('.btn.btn-primary.ml-2').addEventListener('click', function() {
       let keyword = document.querySelector('#searchKeyword').value;
 
-      // fetch(`/search/keyword`, {
-      //       method: 'POST',
-      //       headers: {
-      //           'Accept': 'application/json',
-      //           'Content-Type': 'application/json'
-      //       },
-      //       body: JSON.stringify({ keyword : keyword})
-      //   })
-      //   .then(response => response.json())
-      //   .then(data => {
-      //       console.log(data);
-      //   })
-      //   .catch(error => {
-      //       console.error('Error:', error);
-      //   });
-
       location.href = '/search/keyword?val=' + keyword;
     });
   </script>
@@ -121,15 +105,15 @@
   <script>
     document.querySelector('#searchButton').addEventListener("click", function() 
     {
-      const selectedLocation = document.querySelector('input[name="gyeonggi"]:checked');
-      const selectedEvent = document.querySelector('input[name="event"]:checked');
+      const selectedLocations = document.querySelectorAll('input[name="gyeonggi"]:checked');
+      const selectedEvents = document.querySelectorAll('input[name="event"]:checked');
       
-      const locationValue = selectedLocation.value;
-      const eventValue = selectedEvent.value;
+      const locationValue = Array.from(selectedLocations).map(checkbox => checkbox.value);
+      const eventValues = Array.from(selectedEvents).map(checkbox => checkbox.value);
   
       const requestData = {
-        gyeonggi: locationValue,
-        event : eventValue
+        gyeonggi: locationValues,
+        event : eventValues
       };
   
       fetch('/search', {

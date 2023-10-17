@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>후기 작성</title>
+</head>
+<body>
+    <h1>후기 작성</h1>
+    <textarea id="reviewText" placeholder="후기를 작성하세요"></textarea><br>
+    <input type="password" id="password" placeholder="비밀번호"><br>
+    <button onclick="saveReview()">저장</button>
+    <button onclick="closeWindow()">닫기</button>
+
+    <script>
+        // 후기 저장 함수
+        function saveReview() {
+            const reviewText = document.getElementById('reviewText').value;
+            const password = document.getElementById('password').value;
+            // 여기서 후기를 저장하는 API 호출 또는 저장 로직을 구현할 수 있음
+            console.log('후기 저장:', { reviewText, password });
+        }
+
+        // 창 닫기 함수
+        function closeWindow() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

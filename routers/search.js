@@ -14,42 +14,51 @@ connectDB.then((client)=>{
   console.log(err)
 })
 
-// router.get('/result', async(req,resp)=> {
 
-//   console.log('선택한 도시' + req.query.val)
-//   let result = await db.collection('program').find({location : req.query.val}).toArray()
-//   console.log(result)
-//   if(Array.isArray(result) && result.length == 0){
-//     res.sendFile(path.join(__dirname, '../public', 'search.html'));
+router.get('/',async(req, resp) => {
+  if(req.query.title){
+    let searchTitle = req.query.title
+    let result = await db.collection('program').find({title : searchTitle}).toArray() 
+    resp.render('../views/search.ejs', { 리스트 : result })
+  }else {
+    let result = await db.collection('program').find().toArray() 
+    resp.render('../views/search.ejs', { 리스트 : result })
+  }
+});
 
-//   } else {
-//     console.log('일치하는 항목이 존재합니다.')
-//     resp.render('searchList.ejs', {검색결과 : result});
-//   }
-// })
+// router.get('/title',async(req, resp) => {
+//   let searchTitle = req.query.title
+//   let result = await db.collection('program').find({title : searchTitle}).toArray() 
+//   resp.render('../views/search.ejs', { 리스트 : result })
+// });
 
-router.post('/result', async(req, res) => {
-  const selectedLocation = req.body.gyeonggi;
+router.post('/', async(req, res) => {
+  let selectedLocation = req.body.gyeonggi;
+  //let selectedEvent = req.body.event;
   
-  if (selectedLocation) {
-    let result = await db.collection('program').find({ location: selectedLocation }).toArray()
-    console.log(result)
+  if (selectedLocation ) { // 둘 다 선택 시,
+      let result = await db.collection('program').find({ location: selectedLocation }).toArray()
     if(Array.isArray(result) && result.length == 0){
       console.log('일치하는 항목이 없습니다.')
     } else {
       console.log('일치하는 항목이 존재합니다.')
-      res.render('searchList.ejs', {검색결과 : result});
+      res.render('../views/search.ejs', {리스트 :result})
     }
-  } else { // 선택한게 없으면, 모두 띄우기
-    let result = await db.collection('program').find({}).toArray();
-
-    res.render('searchList.ejs', {검색결과 : result});
   }
 });
 
-router.get('/detail', (req, resp) => {
-  const filePath = path.join(__dirname, '../public/searchList.html');
-    res.sendFile(filePath);
+router.get('/keyword', async(req, res) => {
+  let val = req.query.val
+  console.log(val)
+  let result = await db.collection('program').find({title : val}).toArray()
+  //res.render('../views/search.ejs', {리스트 :result});
+  res.redirect('/search?title='+val)
+});
+
+
+
+router.get('/detail', (req, res) => {
+  res.render('../views/detail.ejs')
 })
 
 

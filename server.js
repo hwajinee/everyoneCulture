@@ -41,10 +41,6 @@ app.get('/about', (req, res) => {
  
 //문화 찾기
 app.use('/search', require('./routers/search.js'))
-app.get('/search', async(req, resp) => {
-  let result = await db.collection('program').find().toArray() 
-  resp.render('../views/searchList.ejs', { 검색결과 : result })
-});
 
 //문화 소식
 app.use('/news', require('./routers/news.js'))

@@ -4,27 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>후기 작성</title>
+
+    <style>
+        @font-face {
+            font-family: 'TextFont';
+            src: url('/fonts/text_font.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'TitleFont';
+            src: url('/fonts/title_font.ttf') format('truetype');
+        }
+
+        .btn-custom-font {
+            font-family: 'TextFont', sans-serif;
+        }
+
+        .title-font {
+            font-family: 'TitleFont', sans-serif;
+        }
+
+        .text-font {
+            font-family: 'TextFont', sans-serif;
+        }
+        
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-<body>
-    <h1>후기 작성</h1>
-    <textarea id="reviewText" placeholder="후기를 작성하세요"></textarea><br>
-    <input type="password" id="password" placeholder="비밀번호"><br>
-    <button onclick="saveReview()">저장</button>
-    <button onclick="closeWindow()">닫기</button>
+
+<body class="container mt-5">
+    <div class="text-center">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <button onclick="goBack()" class="btn btn-secondary btn-custom-font">뒤로가기</button>
+        </div>
+        <div>
+            <h1 class="display-4 title-font">후기 작성</h1>
+        </div>
+        <textarea id="reviewText" class="form-control mt-3 text-font" placeholder="후기를 작성하세요"></textarea>
+        <input type="text" id="password" class="form-control mt-3 text-font" placeholder="비밀번호" oninput="maskPassword(this)">
+        <button onclick="saveReview()" class="btn btn-primary text-font mt-3">저장</button>
+        <button onclick="closeWindow()" class="btn btn-secondary text-font mt-3">닫기</button>
+    </div>
+    <div id="reviewList" class="mt-4"></div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
         // 후기 저장 함수
         function saveReview() {
             const reviewText = document.getElementById('reviewText').value;
-            const password = document.getElementById('password').value;
-            // 여기서 후기를 저장하는 API 호출 또는 저장 로직을 구현할 수 있음
+            const passwordField = document.getElementById('password');
+            const password = passwordField.value;
+
+            // 로컬 스토리지에 리뷰 저장
+            const reviewData = JSON.parse(localStorage.getItem('reviews')) || [];
+            reviewData.push({ reviewText, password });
+            localStorage.setItem('reviews', JSON.stringify(reviewData));
+
+            // 저장한 리뷰 목록 표시
+            showReviews();
+
+            // 비밀번호 필드 내용을 숨김
+            passwordField.value = '*'.repeat(password.length);
+
             console.log('후기 저장:', { reviewText, password });
+        }
+
+        // 삭제 버튼을 클릭하여 리뷰 삭제
+        function deleteReview(index) {
+            const reviewData = JSON.parse(localStorage.getItem('reviews')) || [];
+            reviewData.splice(index, 1); // 해당 인덱스의 리뷰 삭제
+            localStorage.setItem('reviews', JSON.stringify(reviewData));
+            showReviews();
+        }
+
+        // 저장된 리뷰 목록을 표시
+        function showReviews() {
+            const reviewData = JSON.parse(localStorage.getItem('reviews')) || [];
+            const reviewList = document.getElementById('reviewList');
+            reviewList.innerHTML = '';
+
+            reviewData.forEach((review, index) => {
+                const reviewItem = document.createElement('div');
+                reviewItem.textContent = `후기: ${review.reviewText}, 비밀번호: ${'*'.repeat(review.password.length)}`;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '삭제';
+                deleteButton.onclick = () => deleteReview(index);
+                reviewItem.appendChild(deleteButton);
+                reviewList.appendChild(reviewItem);
+            });
+        }
+
+        // 페이지 로드 시 저장된 리뷰 표시
+        window.onload = function() {
+            showReviews();
         }
 
         // 창 닫기 함수
         function closeWindow() {
             window.close();
         }
+
+        // 뒤로가기 함수
+        function goBack() {
+            window.history.back(); 
+        }
+
+         // 비밀번호 마스킹 함수
+        function maskPassword(input) {
+        const password = input.value;
+        const maskedPassword = '*'.repeat(password.length);
+        input.value = maskedPassword;
+    }
     </script>
 </body>
 </html>

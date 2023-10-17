@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | 모두의 문화생활</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <iframe src="navbar.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]); this.remove()"></iframe>
+  <header class="text-black text-center header-container" style="background-color: white; color: black;">
+    <div class="background-image"></div>
+    <div class="container">
+      <h1 class="display-4">'모두의 문화'가 되도록</h1>
+      <p class="lead">우리의 목표은 문화를 증진시키고 모두에게 접근 가능성을 확장하는 것입니다.</p>
+    </div>
+</header>
+
+
+
+  <!-- Add this div for the scrolling effect -->
+  <div class="parallax">
+    <div class="parallax-text">모두가 즐기는 문화</div>
+  </div>
+  
+  
+    <!-- 기획 배경 -->
+    <section class="about-content text-center">
+        <p><br><br><br>
+            "모두의 문화 생활"은 문화에 대한 관심과 접근성을 높이기 위해 설계된 웹사이트입니다.<br><br>
+            이 플랫폼은 문화 활동을 즐기고 싶어하는 경기도내 사람들과 이러한 활동을 주최하거나<br><br>
+            참여하는 단체 간의 다리 역할을 하여 문화 생태계를 향상시킵니다.<br><br>
+            우리는 다양한 문화 행사, 전시회, 공연, 강연 등의 정보를 제공하여 사람들이 참여하기 쉽도록 합니다.<br><br><br><br>
+        </p>
+    </section>
+   <div class="container my-5">
+    <!-- 공공데이터 활용 -->
+    <section class="about-content text-center" style="margin-bottom: 40px;">
+        <h1><br><br>더 가까워질 수 있도록</h1><br>
+        <span class="subtext">
+          "모두의 문화 생활"은 공공데이터 포털에서 제공하는 다양한 문화 행사 정보를 활용하여<br>
+          사용자들에게 행사 정보를 제공하고 편리하게 참여할 수 있도록하고있습니다.</span>
+            <h4><br><br>사용된 공공데이터<br></h4>
+            <span class="subtext">
+              <div class="card-deck mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="https://www.data.go.kr/data/15117057/openapi.do">경기도문화행사현황</a></h5>
+                        
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="https://www.data.go.kr/data/15059089/openapi.do">문화행사<br>현황</a></h5>
+                        
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="https://www.data.go.kr/data/15059026/openapi.do">경기문화재단<br>문화공고/소식<br>현황</a></h5>
+                       
+                    </div>
+                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="https://www.data.go.kr/data/15117059/openapi.do">경기도소식<br>현황</a></h5>
+                        
+                    </div>
+                </div>
+                
+        </span><br><br><br>
+        </p>
+        <br><br><br>
+    </section>
+
+    <!-- 주요 기능 -->
+    <section class="about-content mt-4 text-center" style="margin-bottom: 20px;">
+      <h2><br><br>주요 기능</h2><br>
+      <p>
+          "모두의 문화 생활"은 다음과 같은 주요 기능을 제공하고 있습니다.<br><br>
+      </p>
+      <div class="card-deck">
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">다양한 문화 활동 소개 및 정보</h5>
+              </div>
+          </div>
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">개인 맞춤형 추천 시스템</h5>
+              </div>
+          </div>
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">문화 행사 및 티켓 예매 기능</h5>
+              </div>
+          </div>
+      </div>
+  </section>
+  </div>
+  
+
+
+
+  <footer class="text-white text-center py-3">
+    <p>&copy; 2023 모두의 문화생활. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS (optional, for some components) -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    const parallaxText = document.querySelector('.parallax-text');
+    const aboutContent = document.querySelector('.about-content');
+
+    function updateParallaxTextPosition() {
+      const viewportHeight = window.innerHeight;
+      const parallaxTextHeight = parallaxText.clientHeight;
+      const aboutContentHeight = aboutContent.clientHeight;
+      const marginTop = (viewportHeight - parallaxTextHeight) / 2;
+      const aboutContentBottom = aboutContent.getBoundingClientRect().bottom;
+
+      if (aboutContentBottom > viewportHeight / 2) {
+        parallaxText.style.marginTop = `${marginTop}px`;
+      } else {
+        // Make the text appear in the middle as user scrolls down
+        const distanceFromMiddle = viewportHeight / 2 - aboutContentBottom;
+        parallaxText.style.marginTop = `${marginTop + distanceFromMiddle}px`;
+      }
+    }
+
+    window.addEventListener('scroll', updateParallaxTextPosition);
+    window.addEventListener('resize', updateParallaxTextPosition);
+    updateParallaxTextPosition();
+  </script>
+</body>
+</html>

@@ -58,7 +58,6 @@ app.use('/api', require('./routers/news'));
 
 
 
-
 //수정 전 코드 - 용도를 모르겠어서 삭제 안하고 주석처리 해둘게요
 // api엔드포인트 부분 -> 브라우저 콘솔로 받아오는 데이터 확인하는 메세지 담은 부분임
 // announcement 관련 model, router 풀면 에러남 

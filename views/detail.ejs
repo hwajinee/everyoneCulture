@@ -6,43 +6,132 @@
   <title>About | 모두의 문화생활</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="../style.css">
+  <style>
+    .poster-container {
+      text-align: center;
+      background-color: white;
+      padding: 20px;
+    }
+
+    .poster-container img {
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto;
+      display: block;
+    }
+
+    .review-box {
+    background-color: rgb(236, 247, 251);
+    border: 1px solid black;
+    padding: 25px;
+    margin-bottom: 15px;
+    min-height: 3em;
+    border-radius: 10px;
+  }
+  </style>
 </head>
+
 <body>
   <iframe src="../navbar.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]); this.remove()"></iframe>
   <header class="text-black text-center header-container" style="background-color: white; color: black;">
     <div class="background-image"></div>
     <div class="container">
-      <h1 class="display-4">상세 페이지</h1>
+      <h1 class="display-4"><%= list[0].title %></h1>
       <p class="lead">찾으신 컨텐츠의 상세정보를 확인해 보세요.</p>
+      
     </divii>
-</header>
+  </header>
 
+  <div class="poster-container">
+    <img src="http://www.eduinside.kr/news/photo/202311/13099_9298_823.jpg" alt="행사 포스터">
+  </div>
 
-
-  <!-- Add this div for the scrolling effect -->
-  
-  
-  
-    <!-- 기획 배경 -->
+    <!-- 행사 추가 정보 -->
     <section class="about-content text-center">
-        <p><br><br><br>
-            상세페이지 내용<br>기관명<br>장소<br>포스터 사진<br>등
-        </p>
+        <p>지역 : <%= list[0].location %></p>
+        <p>행사 유형 : <%= list[0].type %></p>
+        <p>행사 기관 : <%= list[0].INST %></p>
+        <p>행사 기간 : <%= list[0].start %> ~ <%= list[0].end %></p>
+        <p>진행 시간 : <%= list[0].time %></p>
+        <p>참여비 : <%= list[0].price %></p>
+        <p>홈페이지 링크: <a href="<%= list[0].link %>" target="_blank"><%= list[0].link %></a></p>
     </section>
    <div class="container my-5">
-    <!-- 공공데이터 활용 -->
-    <section class="about-content text-center" style="margin-bottom: 40px;">
-        <h1><br><br>후기작성 </h1><br>
+  
+    <!-- 후기 -->
+  <!-- <section class="about-content text-center" style="margin-bottom: 40px;">
+        <h2>행사 후기 </h2><br>
         
         <span class="subtext">
           다른 사람들의 후기</span>
             
-  </section>
+  </section> -->
+
+<!-- 행사 후기 섹션 -->
+<section class="about-content text-center" style="margin-bottom: 40px;">
+  <h2>행사 후기 </h2>
+  <span class="subtext">행사에 참여한 다른 사용자들의 후기를 참고해보세요.</span><br><br>
+
+<!-- 후기 리스트를 표시할 곳 -->
+<div id="reviewList" class="review-list">
+  <% reviews.forEach(function(review) { %>
+    <div class="review-box">
+      <p><%= review.reviewText %></p>
+    </div>
+  <% }); %>
+</div>
+
+  <!-- 후기 작성 버튼 -->
+  <button id="reviewButton" style="background-color: #e0e0e0; padding: 10px;">
+    리뷰 작성
+</button>
+
+</section>
+
+<script>
+  // 페이지 로드 시 메시지 수신 이벤트 등록
+window.addEventListener('message', function(event) {
+    if (event.data === 'reviewSaved') {
+        // 저장이 완료된 후에 페이지를 새로고침
+        location.reload();
+    }
+});
+
+  document.getElementById('reviewButton').addEventListener('click', async function () {
+    try {
+      const title = encodeURIComponent('<%= list[0].title %>');
+      const response = await fetch(`/api/reviews?title=${title}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch reviews');
+      }
+
+      const reviews = await response.json();
+
+      // 가져온 후기 데이터로 HTML에 동적으로 후기 리스트 추가
+      var reviewListElement = document.getElementById('reviewList');
+      reviewListElement.innerHTML = ''; // 기존 리스트 초기화
+
+      reviews.forEach(function (review) {
+        var reviewBox = document.createElement('div');
+        reviewBox.className = 'review-box';
+        reviewBox.innerHTML = '<p>' + review.reviewText + '</p>'; // 또는 review.password 등을 적용
+        reviewListElement.appendChild(reviewBox);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+    // list[0].title 값을 쿼리 파라미터로 전달하고, review.html로 이동
+    const titleParam = encodeURIComponent('<%= list[0].title %>');
+
+    // 리뷰 작성 버튼 -> title값을 쿼리 파라미터 전달하며 review.html로 이동
+    window.location.href = `/review.html?title=${titleParam}`;
+  });
+
+  </script>
   </div>
-  
 
-
-
+    
   <footer class="text-white text-center py-3">
     <p>&copy; 2023 모두의 문화생활. All rights reserved.</p>
   </footer>

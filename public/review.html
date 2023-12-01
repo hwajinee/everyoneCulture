@@ -27,6 +27,9 @@
         .text-font {
             font-family: 'TextFont', sans-serif;
         }
+        .pageTitle {
+        color: rgb(124, 137, 255);
+        }
         
     </style>
 
@@ -39,10 +42,11 @@
             <button onclick="goBack()" class="btn btn-secondary btn-custom-font">뒤로가기</button>
         </div>
         <div>
-            <h1 class="display-4 title-font">후기 작성</h1>
+            <h2 class="display-4 title-font" id="pageTitle">후기 작성</h2>
+            <!-- <h1 class="display-4 title-font">후기 작성</h1> -->
         </div>
         <textarea id="reviewText" class="form-control mt-3 text-font" placeholder="후기를 작성하세요"></textarea>
-        <input type="text" id="password" class="form-control mt-3 text-font" placeholder="비밀번호" oninput="maskPassword(this)">
+        <input type="text" id="password" class="form-control mt-3 text-font" placeholder="비밀번호">
         <button onclick="saveReview()" class="btn btn-primary text-font mt-3">저장</button>
         <button onclick="closeWindow()" class="btn btn-secondary text-font mt-3">닫기</button>
     </div>
@@ -53,24 +57,44 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
-        // 후기 저장 함수
-        function saveReview() {
+
+        // 비밀번호(*이 아닌 실제 값) 저장 변수
+        let actualPassword = '';
+
+        const pageTitle = new URLSearchParams(window.location.search).get('title');
+
+        if (pageTitle) {
+            document.getElementById('pageTitle').innerText = `${pageTitle} 후기`;
+        }
+
+        // 후기 저장 - mongoDB에 저장됨.
+        async function saveReview() {
             const reviewText = document.getElementById('reviewText').value;
             const passwordField = document.getElementById('password');
-            const password = passwordField.value;
 
-            // 로컬 스토리지에 리뷰 저장
-            const reviewData = JSON.parse(localStorage.getItem('reviews')) || [];
-            reviewData.push({ reviewText, password });
-            localStorage.setItem('reviews', JSON.stringify(reviewData));
+            // 쿼리 파라미터에서 title 값 가져오기
+            const pageTitle = new URLSearchParams(window.location.search).get('title');
 
-            // 저장한 리뷰 목록 표시
-            showReviews();
+            try {
+                const response = await fetch('/api/saveReview', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ title: pageTitle, reviewText, password: actualPassword }),
+                });
 
-            // 비밀번호 필드 내용을 숨김
-            passwordField.value = '*'.repeat(password.length);
+                if (!response.ok) {
+                    console.error('서버에 저장 중 오류 발생');
+                    return;
+                }
+                // 저장이 완료되면 /detail 페이지로 리디렉션
+                window.location.href = 'search/detail?title=' + encodeURIComponent(pageTitle);
 
-            console.log('후기 저장:', { reviewText, password });
+                
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         // 삭제 버튼을 클릭하여 리뷰 삭제
@@ -97,7 +121,6 @@
                 reviewList.appendChild(reviewItem);
             });
         }
-
         // 페이지 로드 시 저장된 리뷰 표시
         window.onload = function() {
             showReviews();
@@ -113,12 +136,10 @@
             window.history.back(); 
         }
 
-         // 비밀번호 마스킹 함수
         function maskPassword(input) {
-        const password = input.value;
-        const maskedPassword = '*'.repeat(password.length);
-        input.value = maskedPassword;
-    }
+        actualPassword = input.value;
+        }
+
     </script>
 </body>
 </html>

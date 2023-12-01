@@ -4,7 +4,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 
-let connectDB = require('../db.js')
+let connectDB = require('../db.js');
+// const { errors } = require('undici-types');
 
 let db
 connectDB.then((client)=>{
@@ -77,9 +78,20 @@ router.get('/keyword', async(req, res) => {
 });
 
 
+//상세페이지
+router.get('/detail', async(req, res) => {
+  let title = req.query.title
+  //console.log(title)
 
-router.get('/detail', (req, res) => {
-  res.render('../views/detail.ejs')
+  // 프로그램 데이터 조회
+  let programResult = await db.collection('program').find({title : title}).toArray()
+  console.log(programResult)
+
+  // 후기 데이터 조회
+  let reviewResult = await db.collection('reviews').find({title : title}).toArray()
+  console.log(reviewResult)
+
+  res.render('../views/detail.ejs', { list: programResult, reviews: reviewResult })
 })
 
 

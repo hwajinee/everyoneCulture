@@ -110,7 +110,7 @@
     "tr46": "^3.0.0",
     "type-is": "^1.6.18",
     "undefsafe": "^2.0.5",
-    "undici-types": "^5.25.3",
+    "undici-types": "^5.28.2",
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",
     "vary": "^1.1.2",

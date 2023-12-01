@@ -1,6 +1,7 @@
 // express
 const express = require('express')
 const app = express()
+
 //ejs
 app.set('view engine', 'ejs')
 
@@ -55,20 +56,19 @@ app.get('/contact', (req, res) => {
 
 app.use('/api', require('./routers/news'));
 
+//후기 저장
+app.post('/api/saveReview', async (req, res) => {
+  const { title, reviewText, password } = req.body;
 
+  try {
+      const collection = db.collection('reviews');
+      const result = await collection.insertOne({ title, reviewText, password });
 
-
-//수정 전 코드 - 용도를 모르겠어서 삭제 안하고 주석처리 해둘게요
-// api엔드포인트 부분 -> 브라우저 콘솔로 받아오는 데이터 확인하는 메세지 담은 부분임
-// announcement 관련 model, router 풀면 에러남 
-
-// app.get('/api/search', (req, res) => {
-//   const { query } = req.query;
-//   const results = performSearch(query);
-//   res.json({ results });
-// });
-
-// app.get('/api/message', (req, res) => {
-//   const message = 'This is a sample message from the API.';
-// res.json({ message });
-// });
+      res.json({ success: true, insertedId: result.insertedId });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+  } finally {
+      //await collection.close();
+  }
+});

@@ -154,35 +154,35 @@
       searchResultsContainer.innerHTML = "";
 
       searchResults.forEach((result,index) => {
-          const resultCard = document.createElement("div");
-          resultCard.classList.add("card");
+        const resultCard = document.createElement("div");
+        resultCard.classList.add("card");
 
-          const resultCardBody = document.createElement("div");
-          resultCardBody.classList.add("card-body");
+        const resultCardBody = document.createElement("div");
+        resultCardBody.classList.add("card-body");
 
-          const titleLink = document.createElement("a"); // 링크를 생성
-          titleLink.href = '/search/detail?title=' + result.title; // detail 페이지로 이동
+        const titleLink = document.createElement("a"); // 링크를 생성
+        titleLink.href = '/search/detail?title=' + result.title; // detail 페이지로 이동
 
-          const titleElement = document.createElement("h5");
-          titleElement.classList.add("card-title");
-          titleElement.textContent = result.title;
+        const titleElement = document.createElement("h5");
+        titleElement.classList.add("card-title");
+        titleElement.textContent = result.title;
 
-          titleLink.appendChild(titleElement); 
+        titleLink.appendChild(titleElement); 
 
-          const instElement = document.createElement("p");
-          instElement.classList.add("card-text");
-          instElement.textContent = result.INST;
+        const instElement = document.createElement("p");
+        instElement.classList.add("card-text");
+        instElement.textContent = result.INST;
 
-          const typeElement = document.createElement("p");
-          typeElement.classList.add("card-text");
-          typeElement.innerHTML = '<strong>유형: </strong>'+ result.type;
+        const typeElement = document.createElement("p");
+        typeElement.classList.add("card-text");
+        typeElement.innerHTML = '<strong>유형: </strong>'+ result.type;
 
-          resultCardBody.appendChild(titleLink);
-          resultCardBody.appendChild(typeElement);
-          resultCardBody.appendChild(instElement);
-          resultCard.appendChild(resultCardBody);
+        resultCardBody.appendChild(titleLink);
+        resultCardBody.appendChild(typeElement);
+        resultCardBody.appendChild(instElement);
+        resultCard.appendChild(resultCardBody);
 
-          searchResultsContainer.appendChild(resultCard);
+        searchResultsContainer.appendChild(resultCard);
       });
     }
     

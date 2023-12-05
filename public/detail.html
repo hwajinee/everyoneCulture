@@ -38,7 +38,7 @@
     <div class="container">
       <h1 class="display-4" id="title"></h1> 
 
-    <p class="lead">찾으신 컨텐츠의 상세정보를 확인해 보세요.</p>
+    <p class="lead">다른 사용자들의 후기정보를 확인해 보세요.</p>
       
     </divii>
   </header>
@@ -46,50 +46,11 @@
   <div class="poster-container">
     <img src="http://www.eduinside.kr/news/photo/202311/13099_9298_823.jpg" alt="행사 포스터">
   </div>
-
-    <!-- 행사 추가 정보 -->
-    <section class="about-content text-center">
-        <p>행사 유형 : <span id="type"></span></p>
-        <p>행사 기관 : <span id="INST"></span></p>
-        <p>행사 기간 : </p>
-        <p>진행 시간 : <span id="time"></span></p>
-        <p>참여비 : <span id="price"></span></p>
-        <p>홈페이지 링크: </p>
-    </section>
-   <div class="container my-5">
   
 
-    <!-- 프로그램 데이터 - 서버로부터 전달받은 programData(JSON) 적용하는 스크립트 코드 -->
+    <!-- 후기 데이터 - 서버로부터 전달받은 programData(JSON) 적용하는 스크립트 코드 -->
     <script>
-      fetch('/search/api/getProgramData')
-          .then(response => response.json())  // 서버 응답을 JSON으로 파싱
-          .then(programData => {
-              var title = document.getElementById('title');
-              var type = document.getElementById('type');
-              var INST = document.getElementById('INST');
-              var time = document.getElementById('time');
-              var price = document.getElementById('price');
-              
-              if (programData.length > 0) {
-                  title.innerText = programData[0].title;
-                  type.innerText = programData[0].type;
-                  INST.innerText = programData[0].INST;
-                  time.innerText = programData[0].time;
-                  price.innerText = programData[0].price;
-              } else {
-                  title.innerText = '데이터 없음';
-                  type.innerText = '데이터 없음';
-                  INST.innerText = '데이터 없음';
-                  duration.innerText = '데이터 없음';
-                  time.innerText = '데이터 없음';
-                  price.innerText = '데이터 없음';
-              }
-
-              const programTitle = programData[0].title;
-
-              // 두 번째 fetch 요청: 리뷰 데이터 가져오기 (쿼리 파라미터로 프로그램의 title 전달)
-              return fetch(`/search/api/getReviewData?title=${encodeURIComponent(programTitle)}`);
-          })
+      fetch(`/search/api/getReviewData?title=${encodeURIComponent(programTitle)}`)
           .then(response => response.json())
           .then(reviewData => {
               var reviewList = document.getElementById('reviewList');

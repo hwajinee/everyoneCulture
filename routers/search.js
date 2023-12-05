@@ -81,61 +81,48 @@ router.get('/keyword', async(req, res) => {
   res.redirect('/search?keyword='+val)
 });
 
-//상세페이지로 이동
-router.get('/detail', async(req, res) => {
+// 리뷰보기로 이동
+router.get('/reviews', async(req, res) => {
+  let title = req.query.title;
+  console.log('/reviews' + title)
+
   res.sendFile(path.join(__dirname, '../public', 'detail.html'));
-
 })
-
-// 공공데이터 프로그램 정보 openAPI로 변경해야 함.
-router.get('/api/getProgramData', (req, res) => {
-  
-  //아래는 임시 데이터
-  const programData = [
-      {
-          title: '부천전시',
-          type: '전시',
-          INST: '경기문화재단',
-          link: 'https://ggc.ggcf.kr/cultureEvents/view/5faa30cd22471c662d8bdaa6',
-          time: '10:00 - 18:00',
-          price: '무료',
-          start: '2020-11-10',
-          end: '2020-12-06',
-          location: '부천'
-      }
-  ];
-
-  res.json(programData);
-});
 
 router.get('/api/getReviewData', async(req, res) => {
   
-  // let request_title = req.query.title
-  // console.log(request_title)
+  const title = req.query.title
+  console.log(title)
 
-  // // 후기 데이터 조회
-  // const reviewData = await db.collection('reviews').find({title : title}).toArray()
-  // console.log(reviewData)
+  let reviewData = await db.collection('reviews').find({title : title}).toArray()
+  res.json(reviewData)
 
-
-  const reviewData = [
-    {
-        title: '부천전시',
-        reviewText : '개재미써',
-        password: '1234'
-    },
-    {
-      title: '부천전시',
-      reviewText : '행복해써',
-      password: '1234'
-    }
-  ];
-
-
-  // 클라이언트에게 JSON 형태로 응답
-  res.json(reviewData);
 
 });
+
+
+
+// // 공공데이터 프로그램 정보 openAPI로 변경해야 함.
+// router.get('/api/getProgramData', (req, res) => {
+  
+//   //아래는 임시 데이터
+//   const programData = [
+//       {
+//           title: '부천전시',
+//           type: '전시',
+//           INST: '경기문화재단',
+//           link: 'https://ggc.ggcf.kr/cultureEvents/view/5faa30cd22471c662d8bdaa6',
+//           time: '10:00 - 18:00',
+//           price: '무료',
+//           start: '2020-11-10',
+//           end: '2020-12-06',
+//           location: '부천'
+//       }
+//   ];
+
+//   res.json(programData);
+// });
+
 
 
 module.exports = router

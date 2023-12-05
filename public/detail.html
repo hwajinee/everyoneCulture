@@ -42,15 +42,36 @@
       
     </divii>
   </header>
-
-  <div class="poster-container">
-    <img src="http://www.eduinside.kr/news/photo/202311/13099_9298_823.jpg" alt="행사 포스터">
-  </div>
   
+  <!-- 행사 후기 섹션 -->
+<section class="about-content text-center" style="margin-bottom: 40px;">
+
+  <!-- 후기 리스트를 표시할 곳 -->
+  <div id="reviewList" class="review-list">
+  </div>
+  <br>
+  <br>
+  <!-- 후기 작성 버튼 -->
+  <button id="reviewButton" style="background-color: #e0e0e0; padding: 10px;">
+    내 후기 작성
+  </button><br><br>
+
+  
+  </section>
 
     <!-- 후기 데이터 - 서버로부터 전달받은 programData(JSON) 적용하는 스크립트 코드 -->
     <script>
-      fetch(`/search/api/getReviewData?title=${encodeURIComponent(programTitle)}`)
+      document.addEventListener('DOMContentLoaded', function () {
+      // URL에서 쿼리 매개변수를 읽어옴
+      const urlParams = new URLSearchParams(window.location.search);
+      const title = urlParams.get('title');
+
+      // 쿼리 파라미터를 표시
+      if (title) {
+        document.getElementById('title').textContent = title;
+
+  
+      fetch(`/search/api/getReviewData?title=` + title)
           .then(response => response.json())
           .then(reviewData => {
               var reviewList = document.getElementById('reviewList');
@@ -83,25 +104,11 @@
                 location.reload();
             }
           });
+        }
+      });
     </script>
 
-<!-- 행사 후기 섹션 -->
-<section class="about-content text-center" style="margin-bottom: 40px;">
-  <h2>행사 후기 </h2>
-  <span class="subtext">행사에 참여한 다른 사용자들의 후기를 참고해보세요.</span><br><br>
-
-<!-- 후기 리스트를 표시할 곳 -->
-<div id="reviewList" class="review-list">
 </div>
-
-<!-- 후기 작성 버튼 -->
-<button id="reviewButton" style="background-color: #e0e0e0; padding: 10px;">
-  리뷰 작성
-</button>
-
-</section>
-
-  </div>
 
 
     

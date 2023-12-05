@@ -86,7 +86,7 @@ router.get('/reviews', async(req, res) => {
   let title = req.query.title;
   console.log('/reviews' + title)
 
-  res.sendFile(path.join(__dirname, '../public', 'detail.html'));
+  res.sendFile(path.join(__dirname, '../public', 'reviews.html'));
 })
 
 router.get('/api/getReviewData', async(req, res) => {
